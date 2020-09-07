@@ -8,8 +8,8 @@ import BrowseMovies from "./pages/browse/browse.component";
 import PopularMovies from "./pages/popular/popular.component";
 import UpcomingMovies from "./pages/upcoming/upcoming.component";
 
-import { getTrendingMoviesStartAsync } from './redux/movie/movie.actions'
-import { selectIsGetTrendingMoviesFetching } from './redux/movie/movie.selectors'
+import { getTrendingMoviesStartAsync, getPopularMoviesStartAsync, getUpcomingMoviesStartAsync } from './redux/movie/movie.actions'
+import { selectIsGetTrendingMoviesFetching, selectIsGetPopularMoviesFetching, selectIsGetUpcomingMoviesFetching } from './redux/movie/movie.selectors'
 import { createStructuredSelector } from 'reselect'
 
 // import { getTrendingMovies, getPopularMovies, getUpcomingMovies } from "./redux/movie/movie.actions";
@@ -20,6 +20,8 @@ class App extends React.Component {
   componentDidMount() {
 
     this.props.getTrendingMoviesStartAsync();
+    this.props.getPopularMoviesStartAsync();
+    this.props.getUpcomingMoviesStartAsync();
 
     // fetch(
     //   "https://api.themoviedb.org/3/movie/popular?api_key=1c405e1c5592d214f74b8cb74e0781e9&language=en-US&page=1"
@@ -27,6 +29,15 @@ class App extends React.Component {
     //   .then((response) => response.json()) // one extra step
     //   .then((data) => {
     //     this.props.getPopularMovies({ movies: data.results });
+    //   })
+    //   .catch((error) => console.error(error));
+
+    // fetch(
+    //   "https://api.themoviedb.org/3/trending/all/day?api_key=1c405e1c5592d214f74b8cb74e0781e9"
+    // )
+    //   .then((response) => response.json()) // one extra step
+    //   .then((data) => {
+    //     this.props.getTrendingMovies({ movies: data.results });
     //   })
     //   .catch((error) => console.error(error));
 
@@ -66,14 +77,14 @@ class App extends React.Component {
               pageName="Popular Movies"
               path="/movies/popular"
               render={(props) => (
-                <PopularMovies pageName="Popular Movies" {...props} />
+                <PopularMovies popularMovies={this.props.isPopularMoviesFetching} pageName="Popular Movies" {...props} />
               )}
             />
             <Route
               pageName="Upcoming Movies"
               path="/movies/upcoming"
               render={(props) => (
-                <UpcomingMovies pageName="Upcoming Movies" {...props} />
+                <UpcomingMovies upcomingMovies={this.props.isUpcomingMoviesFetching} pageName="Upcoming Movies" {...props} />
               )}
             />
           </Switch>
@@ -93,11 +104,15 @@ class App extends React.Component {
 // });
 
 const mapStateToProps = createStructuredSelector ({
-  isTrendingMoviesFetching: selectIsGetTrendingMoviesFetching
+  isTrendingMoviesFetching: selectIsGetTrendingMoviesFetching,
+  isPopularMoviesFetching: selectIsGetPopularMoviesFetching,
+  isUpcomingMoviesFetching: selectIsGetUpcomingMoviesFetching,
 })
 
 const mapDispatchToProps = dispatch => ({
-  getTrendingMoviesStartAsync: () => dispatch(getTrendingMoviesStartAsync())
+  getTrendingMoviesStartAsync: () => dispatch(getTrendingMoviesStartAsync()),
+  getPopularMoviesStartAsync: () => dispatch(getPopularMoviesStartAsync()),
+  getUpcomingMoviesStartAsync: () => dispatch(getUpcomingMoviesStartAsync()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

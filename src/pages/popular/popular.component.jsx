@@ -11,7 +11,7 @@ const PopularMovies = (props) => {
       <h1>Popular Movies</h1>
       <div className="movie-list">
         {props.popularMovies ? (
-          props.popularMovies.movies.map((movie) => (
+          props.popularMovies.results.map((movie) => (
             <Movie
               imgSource={movie.poster_path}
               title={movie.title}

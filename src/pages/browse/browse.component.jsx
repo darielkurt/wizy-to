@@ -59,19 +59,18 @@ class BrowseMovies extends React.Component {
 
   handleSubmit = (e) => {
     try {
+      if (this.state.movieSearch.length < 1) return;
 
-      if (this.state.movieSearch.length < 1) return
-
-      // fetch(
-      //   `https://api.themoviedb.org/3/search/movie?api_key=1c405e1c5592d214f74b8cb74e0781e9&language=en-US&query=${this.state.movieSearch}&page=1`
-      // )
-      //   .then((response) => response.json()) // one extra step
-      //   .then((data) => {
-      //     this.setState({ movieSearchResults: data });
-      //   })
-      //   .catch((error) => console.error(error));
+      fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=1c405e1c5592d214f74b8cb74e0781e9&language=en-US&query=${this.state.movieSearch}&page=1`
+      )
+        .then((response) => response.json()) // one extra step
+        .then((data) => {
+          this.setState({ movieSearchResults: data });
+        })
+        .catch((error) => console.error(error));
     } catch {
-      e.preventDefault()
+      e.preventDefault();
     }
   };
 
@@ -87,7 +86,7 @@ class BrowseMovies extends React.Component {
   };
 
   render() {
-    console.log(this.state.movieSearchResults)
+    // console.log(this.state.movieSearchResults)
     return (
       <div className="browse-movies">
         <h1>{this.props.pageName}</h1>
@@ -106,14 +105,22 @@ class BrowseMovies extends React.Component {
           </Button>
         </div>
         <div>
-        {
-          this.movieSearchResults ? `Search results for ${this.state.movieSearch}` : null
-        }
+          {this.movieSearchResults
+            ? `Search results for ${this.state.movieSearch}`
+            : null}
         </div>
         <div className="movie-list">
-          {
-             this.props.trendingMovies && this.props.trendingMovies.movies? (
-            this.props.trendingMovies.movies.map((movie) => (
+          {this.state.movieSearchResults ? (
+            this.state.movieSearchResults.results.map((movie) => (
+              <Movie
+                imgSource={movie.poster_path}
+                title={movie.title}
+                date={movie.release_date}
+                key={movie.id}
+              />
+            ))
+          ) : this.props.trendingMovies ? (
+            this.props.trendingMovies.results.map((movie) => (
               <Movie
                 imgSource={movie.poster_path}
                 title={movie.title}
@@ -153,14 +160,3 @@ export default connect(mapStateToProps)(BrowseMovies);
 //     color: "black",
 //   },
 // }));
-
-// this.state.movieSearchResults ? (
-//   this.state.movieSearchResults.results.map((movie) => (
-//     <Movie
-//       imgSource={movie.poster_path}
-//       title={movie.title}
-//       date={movie.release_date}
-//       key={movie.id}
-//     />
-//   ))
-// ) :

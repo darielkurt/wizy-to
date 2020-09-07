@@ -11,7 +11,7 @@ const UpcomingMovies = (props) => {
 
       <div className="movie-list">
         {props.upcomingMovies ? (
-          props.upcomingMovies.movies.map((movie) => (
+          props.upcomingMovies.results.map((movie) => (
             <Movie
               imgSource={movie.poster_path}
               title={movie.title}
