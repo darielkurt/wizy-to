@@ -1,0 +1,19 @@
+.popular-movies {
+  .search-bar {
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+  }
+
+  .MuiButton-label {
+    color: black;
+  }
+
+  .movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+    width: 90%;
+  }
+}

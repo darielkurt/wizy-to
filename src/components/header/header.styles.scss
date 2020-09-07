@@ -1,0 +1,34 @@
+.header {
+  width: 100%;
+  height: 70px;
+//   border-bottom: 1px solid #d8d8d8;
+  padding: 0 50px;
+  display: grid;
+  align-items: center;
+  background: #1d1d1d;
+  grid-template-columns: 2fr 0.8fr;
+
+  .logo {
+    font-size: 36px;
+    color: #6ac045;
+    font-weight: 900;
+  }
+
+  .option-area {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+
+    .option {
+      color: #656565;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 180ms ease-in-out;
+
+      &:hover {
+        color: #ffffff;
+      }
+    }
+  }
+}

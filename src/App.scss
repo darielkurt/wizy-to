@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+  font-family: Asap;
+  color: #d1d1d1;
+  text-decoration: none;
+}
+
+body {
+  font-weight: 400;
+}
+
+h1 {
+  font-weight: 900;
+}
+h2 {
+  font-weight: 700;
+}
+
+h3 {
+  font-weight: 300;
+}
+
+.wizy-to {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  background: #181818;
+
+  .body {
+    overflow: scroll;
+    height: 100%;
+    overflow-x: hidden;
+    padding: 40px 120px;
+  }
+}
